@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YETYETGANG TEAM</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0b0c10; color: #c5c6c7; line-height: 1.6; text-align: center; }
+        
+        /* Header & Banner */
+        header { padding: 80px 20px; background: linear-gradient(135deg, #1f2833 0%, #0b0c10 100%); border-bottom: 2px solid #66fcf1; }
+        h1 { font-size: 3.5rem; color: #66fcf1; letter-spacing: 2px; margin-bottom: 10px; text-shadow: 0 0 10px rgba(102,252,241,0.5); }
+        .slogan { font-size: 1.2rem; color: #45f3ff; font-style: italic; }
+
+        /* Khối nội dung chung */
+        section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
+        h2 { font-size: 2rem; color: #66fcf1; margin-bottom: 30px; text-transform: uppercase; position: relative; }
+        h2::after { content: ''; display: block; width: 50px; height: 3px; background: #45f3ff; margin: 10px auto 0; }
+
+        /* Video Section */
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 800px; margin: 0 auto; border-radius: 10px; box-shadow: 0 0 20px rgba(102,252,241,0.3); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* Members Section */
+        .members-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 20px; }
+        .member-card { background: #1f2833; padding: 25px; border-radius: 8px; border: 1px solid #45f3ff; transition: 0.3s; }
+        .member-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(69,243,255,0.4); }
+        .member-avatar { width: 80px; height: 80px; background: #0b0c10; border-radius: 50%; margin: 0 auto 15px; border: 2px solid #66fcf1; line-height: 80px; font-weight: bold; color: #66fcf1; }
+        .member-name { font-size: 1.2rem; color: #fff; font-weight: 600; }
+        .member-role { font-size: 0.9rem; color: #45f3ff; }
+
+        /* Thống kê */
+        .stats { display: flex; justify-content: space-around; background: #1f2833; padding: 30px; border-radius: 10px; margin: 40px auto; }
+        .stat-item h3 { font-size: 2rem; color: #66fcf1; }
+
+        /* Button Đăng ký */
+        .btn-sub { display: inline-block; background: #ff0000; color: #fff; padding: 15px 40px; font-size: 1.2rem; font-weight: bold; text-decoration: none; border-radius: 30px; margin-top: 20px; box-shadow: 0 0 15px rgba(255,0,0,0.4); transition: 0.3s; }
+        .btn-sub:hover { background: #cc0000; transform: scale(1.05); box-shadow: 0 0 25px rgba(255,0,0,0.7); }
+
+        /* Footer */
+        footer { padding: 40px 20px; background: #0b0c10; border-top: 1px solid #1f2833; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <!-- BANNER ĐẦU TRANG -->
+    <header>
+        <h1>YETYETGANG</h1>
+        <p class="slogan">Chào mừng tới trang chính thức của Yetyetgang Youtube Team</p>
+    </header>
+
+    <!-- VIDEO TIÊU BIỂU -->
+    <section>
+        <h2>Video Nổi Bật</h2>
+        <div class="video-container">
+            <!-- Thay mã ID video Youtube của bạn vào sau chữ embed/ dưới đây -->
+            <iframe src="https://youtube.com" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- THÀNH TỰU -->
+    <section style="padding-top: 0; padding-bottom: 0;">
+        <div class="stats">
+            <div class="stat-item">
+                <h3>100K+</h3>
+                <p>Subscribers</p>
+            </div>
+            <div class="stat-item">
+                <h3>1M+</h3>
+                <p>Tổng Lượt Xem</p>
+            </div>
+            <div class="stat-item">
+                <h3>2026</h3>
+                <p>Năm Thành Lập</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- THÀNH VIÊN TEAM -->
+    <section>
+        <h2>Thành Viên Trong Team</h2>
+        <div class="members-grid">
+            <div class="member-card">
+                <div class="member-avatar">AN</div>
+                <div class="member-name">Thiên An</div>
+                <div class="member-role">Leader / Creator</div>
+            </div>
+            <div class="member-card">
+                <div class="member-avatar">ED</div>
+                <div class="member-name">Thành Viên 2</div>
+                <div class="member-role">Video Editor</div>
+            </div>
+            <div class="member-card">
+                <div class="member-avatar">DE</div>
+                <div class="member-name">Thành Viên 3</div>
+                <div class="member-role">Designer</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KÊU GỌI ĐĂNG KÝ -->
+    <section>
+        <h2>Ủng Hộ Chúng Tôi</h2>
+        <p>Bấm vào nút bên dưới để không bỏ lỡ những video mới nhất từ Yetyetgang!</p>
+        <!-- Thay link kênh Youtube của bạn vào ô href dưới đây -->
+        <a href="https://youtube.com" target="_blank" class="btn-sub">ĐĂNG KÝ KÊNH NGAY</a>
+    </section>
+
+    <!-- CHÂN TRANG -->
+    <footer>
+        <p>&copy; 2026 YETYETGANG TEAM. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
