@@ -3,39 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yetyetgang team</title>
+    <title>YYG TEAM</title>
     <style>
-        /* Cấu hình nền tối chung */
+        /* Cấu hình nền xám tối và trắng chủ đạo */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
-        body { background-color: #0d0d13; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; overflow-x: hidden; }
+        body { background-color: #1a1a1a; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; overflow-x: hidden; }
 
-        /* Tên YYG ở trên đầu */
-        .brand-title { font-size: 5.5rem; font-weight: 900; color: #66fcf1; letter-spacing: 5px; margin-bottom: 50px; text-shadow: 0 0 20px rgba(102,252,241,0.6); text-align: center; }
+        /* Tên YYG màu trắng sáng rực rỡ ở trên đầu */
+        .brand-title { font-size: 5.5rem; font-weight: 900; color: #ffffff; letter-spacing: 5px; margin-bottom: 50px; text-shadow: 0 0 15px rgba(255,255,255,0.3); text-align: center; }
 
         /* Vùng chứa 4 ô vuông lớn */
         .team-container { display: flex; width: 100%; max-width: 1400px; gap: 25px; height: 600px; align-items: center; justify-content: center; }
 
-        /* Cấu hình từng ô vuông thành viên to hơn */
-        .member-box { position: relative; flex: 1; height: 100%; border-radius: 20px; overflow: hidden; border: 2px solid #1f2833; cursor: pointer; transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); background-color: #1a1a24; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        /* Cấu hình từng ô vuông thành viên tone Xám - Trắng */
+        .member-box { position: relative; flex: 1; height: 100%; border-radius: 20px; overflow: hidden; border: 2px solid #333333; cursor: pointer; transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); background-color: #262626; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
 
-        /* Hình ảnh bên trong ô vuông */
-        .member-box img { width: 100%; height: 100%; object-fit: cover; transition: all 0.6s ease; filter: brightness(0.6); }
+        /* Hình ảnh bên trong ô vuông (Bình thường hơi mờ đen trắng) */
+        .member-box img { width: 100%; height: 100%; object-fit: cover; transition: all 0.6s ease; filter: brightness(0.5) grayscale(50%); }
 
         /* Phần chữ thông tin ban đầu ẩn đi và đẩy xuống dưới */
-        .member-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 35px; background: linear-gradient(to top, rgba(13,13,19,1) 0%, rgba(13,13,19,0.8) 60%, rgba(13,13,19,0) 100%); text-align: left; opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none; }
-        .member-name { font-size: 1.8rem; font-weight: bold; color: #ffffff; margin-bottom: 8px; }
-        .member-role { font-size: 1.1rem; color: #66fcf1; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+        .member-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 35px; background: linear-gradient(to top, rgba(26,26,26,1) 0%, rgba(26,26,26,0.8) 60%, rgba(26,26,26,0) 100%); text-align: left; opacity: 0; transform: translateY(30px); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .member-name { font-size: 1.8rem; font-weight: bold; color: #ffffff; margin-bottom: 4px; }
+        .member-role { font-size: 1rem; color: #cccccc; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px; }
+
+        /* Nút Đăng ký YouTube màu đỏ nổi bật */
+        .btn-youtube { display: inline-flex; align-items: center; justify-content: center; background-color: #ff0000; color: #ffffff; padding: 10px 20px; font-size: 0.9rem; font-weight: bold; text-decoration: none; border-radius: 25px; border: none; transition: background 0.3s, transform 0.2s; box-shadow: 0 4px 10px rgba(255,0,0,0.3); pointer-events: auto; }
+        .btn-youtube:hover { background-color: #cc0000; transform: scale(1.05); }
 
         /* HIỆU ỨNG TƯƠNG TÁC KHI DI CHUỘT (HOVER EFFECT) */
-        /* Khi di chuột vào vùng chứa chung, các ô khác tự động thu nhỏ lại */
-        .team-container:hover .member-box { flex: 0.6; border-color: #1f2833; }
-        .team-container:hover .member-box img { filter: brightness(0.3) blur(3px); }
+        /* Khi di chuột vào vùng chứa chung, các ô khác tự động thu nhỏ lại và tối đi */
+        .team-container:hover .member-box { flex: 0.6; border-color: #222222; }
+        .team-container:hover .member-box img { filter: brightness(0.2) grayscale(100%) blur(2px); }
 
-        /* Riêng ô được trỏ chuột vào: Phóng to cực đại, sáng ảnh, và HIỆN THÔNG TIN */
-        .team-container .member-box:hover { flex: 2.5; border-color: #66fcf1; box-shadow: 0 0 40px rgba(102,252,241,0.5); }
-        .team-container .member-box:hover img { transform: scale(1.08); filter: brightness(1); }
+        /* Riêng ô được trỏ chuột vào: Phóng to, sáng ảnh rõ nét, viền trắng, và HIỆN THÔNG TIN + NÚT */
+        .team-container .member-box:hover { flex: 2.5; border-color: #ffffff; box-shadow: 0 0 40px rgba(255,255,255,0.2); }
+        .team-container .member-box:hover img { transform: scale(1.08); filter: brightness(1) grayscale(0%); }
         
-        /* Hiệu ứng hiện thông tin mượt mà khi hover */
+        /* Hiện chữ và nút mượt mà từ dưới lên */
         .team-container .member-box:hover .member-info { opacity: 1; transform: translateY(0); }
 
         /* Tối ưu giao diện trên điện thoại (Xếp dọc) */
@@ -43,9 +47,9 @@
             .brand-title { font-size: 3.5rem; margin-bottom: 30px; }
             .team-container { flex-direction: column; height: auto; gap: 20px; }
             .member-box { width: 100%; height: 350px; flex: none !important; }
-            .member-box img { filter: brightness(0.8) !important; }
-            /* Trên điện thoại thì hiện sẵn thông tin luôn vì không có chuột để di vào */
-            .member-info { opacity: 1; transform: translateY(0); padding: 20px; }
+            .member-box img { filter: brightness(0.8) grayscale(0%) !important; }
+            /* Hiện sẵn thông tin trên điện thoại */
+            .member-info { opacity: 1; transform: translateY(0); padding: 20px; background: linear-gradient(to top, rgba(26,26,26,1) 0%, rgba(26,26,26,0.6) 100%); }
             .member-name { font-size: 1.4rem; }
             .member-role { font-size: 0.9rem; }
         }
@@ -53,7 +57,7 @@
 </head>
 <body>
 
-    <!-- TÊN YYG TRÊN ĐẦU -->
+    <!-- TÊN YYG MÀU TRẮNG TRÊN ĐẦU -->
     <div class="brand-title">YYG</div>
 
     <!-- KHU VỰC 4 Ô VUÔNG THÀNH VIÊN -->
@@ -65,6 +69,8 @@
             <div class="member-info">
                 <div class="member-name">Thiên An</div>
                 <div class="member-role">LEADER / CREATOR</div>
+                <!-- Thay link kênh YouTube của Thiên An vào chỗ href="..." dưới đây -->
+                <a href="https://youtube.com" target="_blank" class="btn-youtube">SUBSCRIBE KÊNH</a>
             </div>
         </div>
 
@@ -74,6 +80,8 @@
             <div class="member-info">
                 <div class="member-name">Thành Viên 2</div>
                 <div class="member-role">VIDEO EDITOR</div>
+                <!-- Thay link kênh YouTube của Thành Viên 2 vào chỗ href="..." dưới đây -->
+                <a href="https://youtube.com" target="_blank" class="btn-youtube">SUBSCRIBE KÊNH</a>
             </div>
         </div>
 
@@ -83,6 +91,8 @@
             <div class="member-info">
                 <div class="member-name">Thành Viên 3</div>
                 <div class="member-role">DESIGNER</div>
+                <!-- Thay link kênh YouTube của Thành Viên 3 vào chỗ href="..." dưới đây -->
+                <a href="https://youtube.com" target="_blank" class="btn-youtube">SUBSCRIBE KÊNH</a>
             </div>
         </div>
 
@@ -92,6 +102,8 @@
             <div class="member-info">
                 <div class="member-name">Thành Viên 4</div>
                 <div class="member-role">STREAMER</div>
+                <!-- Thay link kênh YouTube của Thành Viên 4 vào chỗ href="..." dưới đây -->
+                <a href="https://youtube.com" target="_blank" class="btn-youtube">SUBSCRIBE KÊNH</a>
             </div>
         </div>
 
