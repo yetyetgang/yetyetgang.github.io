@@ -119,19 +119,30 @@
     <!-- SCRIPT ĐIỀU KHIỂN ÁNH SÁNG THEO CHUỘT -->
     <script>
         const glow = document.getElementById('glow');
-        
         window.addEventListener('mousemove', (e) => {
             glow.style.opacity = '1';
-            // Cập nhật vị trí của luồng sáng theo tọa độ chuột
             glow.style.left = e.clientX + 'px';
             glow.style.top = e.clientY + 'px';
         });
-
-        // Ẩn luồng sáng khi con chuột rời khỏi cửa sổ trình duyệt
         window.addEventListener('mouseout', () => {
             glow.style.opacity = '0';
         });
+    </script>
+
+    <!-- KHU VỰC THANH PHÁT NHẠC TRƯỢT THÔNG MINH -->
+    <div class="music-wrapper">
+        <div class="music-player" id="musicPlayer">
+            <div class="song-title">🎵 Đang phát: YETYETGANG Theme Song</div>
+            <audio id="bg-music" src="https://soundhelix.com" controls loop style="height: 30px; width: 220px;"></audio>
+        </div>
+        <div class="music-toggle-btn" id="musicToggleBtn" title="Bật/Tắt thanh nhạc">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </div>
+    </div>
+
+    <!-- GỌI FILE ĐIỀU KHIỂN NHẠC RIÊNG BIỆT -->
     <script src="music.js"></script>
+
 
 </body>
 </html>
