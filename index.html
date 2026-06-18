@@ -7,41 +7,47 @@
     <style>
         /* Cấu hình nền tối chung */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
-        body { background-color: #0d0d13; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; overflow-x: hidden; }
+        body { background-color: #0d0d13; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; overflow-x: hidden; }
 
         /* Tên YYG ở trên đầu */
-        .brand-title { font-size: 5rem; font-weight: 900; color: #66fcf1; letter-spacing: 5px; margin-bottom: 40px; text-shadow: 0 0 20px rgba(102,252,241,0.6); text-align: center; }
+        .brand-title { font-size: 5.5rem; font-weight: 900; color: #66fcf1; letter-spacing: 5px; margin-bottom: 50px; text-shadow: 0 0 20px rgba(102,252,241,0.6); text-align: center; }
 
-        /* Vùng chứa 4 ô vuông thành viên */
-        .team-container { display: flex; width: 100%; max-width: 1200px; gap: 20px; height: 450px; align-items: center; justify-content: center; }
+        /* Vùng chứa 4 ô vuông lớn */
+        .team-container { display: flex; width: 100%; max-width: 1400px; gap: 25px; height: 600px; align-items: center; justify-content: center; }
 
-        /* Cấu hình từng ô vuông thành viên */
-        .member-box { position: relative; flex: 1; height: 100%; border-radius: 15px; overflow: hidden; border: 2px solid #1f2833; cursor: pointer; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); background-color: #1a1a24; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        /* Cấu hình từng ô vuông thành viên to hơn */
+        .member-box { position: relative; flex: 1; height: 100%; border-radius: 20px; overflow: hidden; border: 2px solid #1f2833; cursor: pointer; transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); background-color: #1a1a24; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
 
         /* Hình ảnh bên trong ô vuông */
-        .member-box img { width: 100%; height: 100%; object-fit: cover; transition: all 0.5s ease; filter: brightness(0.7); }
+        .member-box img { width: 100%; height: 100%; object-fit: cover; transition: all 0.6s ease; filter: brightness(0.6); }
 
-        /* Phần chữ thông tin (Tên + Vai trò) đè lên ảnh */
-        .member-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px; background: linear-gradient(to top, rgba(13,13,19,1) 0%, rgba(13,13,19,0.7) 50%, rgba(13,13,19,0) 100%); text-align: left; transition: all 0.5s ease; }
-        .member-name { font-size: 1.5rem; font-weight: bold; color: #ffffff; margin-bottom: 5px; }
-        .member-role { font-size: 1rem; color: #66fcf1; font-weight: 500; letter-spacing: 1px; }
+        /* Phần chữ thông tin ban đầu ẩn đi và đẩy xuống dưới */
+        .member-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 35px; background: linear-gradient(to top, rgba(13,13,19,1) 0%, rgba(13,13,19,0.8) 60%, rgba(13,13,19,0) 100%); text-align: left; opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none; }
+        .member-name { font-size: 1.8rem; font-weight: bold; color: #ffffff; margin-bottom: 8px; }
+        .member-role { font-size: 1.1rem; color: #66fcf1; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
 
         /* HIỆU ỨNG TƯƠNG TÁC KHI DI CHUỘT (HOVER EFFECT) */
-        /* Khi di chuột vào vùng chứa chung, tất cả các ô tự động thu nhỏ lại một chút */
-        .team-container:hover .member-box { flex: 0.7; border-color: #1f2833; }
-        .team-container:hover .member-box img { filter: brightness(0.4) blur(2px); }
+        /* Khi di chuột vào vùng chứa chung, các ô khác tự động thu nhỏ lại */
+        .team-container:hover .member-box { flex: 0.6; border-color: #1f2833; }
+        .team-container:hover .member-box img { filter: brightness(0.3) blur(3px); }
 
-        /* Riêng ô nào được trỏ chuột vào trực tiếp sẽ phóng to ra cực đại */
-        .team-container .member-box:hover { flex: 2; border-color: #66fcf1; box-shadow: 0 0 30px rgba(102,252,241,0.4); }
-        .team-container .member-box:hover img { transform: scale(1.05); filter: brightness(1); }
-        .team-container .member-box:hover .member-info { background: linear-gradient(to top, rgba(13,13,19,1) 0%, rgba(13,13,19,0.5) 100%); }
+        /* Riêng ô được trỏ chuột vào: Phóng to cực đại, sáng ảnh, và HIỆN THÔNG TIN */
+        .team-container .member-box:hover { flex: 2.5; border-color: #66fcf1; box-shadow: 0 0 40px rgba(102,252,241,0.5); }
+        .team-container .member-box:hover img { transform: scale(1.08); filter: brightness(1); }
+        
+        /* Hiệu ứng hiện thông tin mượt mà khi hover */
+        .team-container .member-box:hover .member-info { opacity: 1; transform: translateY(0); }
 
-        /* Tối ưu giao diện mượt mà trên điện thoại (Xếp dọc thay vì xếp ngang) */
-        @media (max-width: 768px) {
-            .brand-title { font-size: 3.5rem; margin-bottom: 20px; }
-            .team-container { flex-direction: column; height: auto; gap: 15px; }
-            .member-box { width: 100%; height: 250px; flex: none !important; }
-            .member-box img { filter: brightness(0.9) !important; }
+        /* Tối ưu giao diện trên điện thoại (Xếp dọc) */
+        @media (max-width: 900px) {
+            .brand-title { font-size: 3.5rem; margin-bottom: 30px; }
+            .team-container { flex-direction: column; height: auto; gap: 20px; }
+            .member-box { width: 100%; height: 350px; flex: none !important; }
+            .member-box img { filter: brightness(0.8) !important; }
+            /* Trên điện thoại thì hiện sẵn thông tin luôn vì không có chuột để di vào */
+            .member-info { opacity: 1; transform: translateY(0); padding: 20px; }
+            .member-name { font-size: 1.4rem; }
+            .member-role { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -55,7 +61,6 @@
 
         <!-- THÀNH VIÊN 1 -->
         <div class="member-box">
-            <!-- Thay link ảnh của Thành viên 1 vào mục src bên dưới -->
             <img src="https://picsum.photos" alt="Thành viên 1">
             <div class="member-info">
                 <div class="member-name">Thiên An</div>
@@ -65,7 +70,6 @@
 
         <!-- THÀNH VIÊN 2 -->
         <div class="member-box">
-            <!-- Thay link ảnh của Thành viên 2 vào mục src bên dưới -->
             <img src="https://picsum.photos" alt="Thành viên 2">
             <div class="member-info">
                 <div class="member-name">Thành Viên 2</div>
@@ -75,7 +79,6 @@
 
         <!-- THÀNH VIÊN 3 -->
         <div class="member-box">
-            <!-- Thay link ảnh của Thành viên 3 vào mục src bên dưới -->
             <img src="https://picsum.photos" alt="Thành viên 3">
             <div class="member-info">
                 <div class="member-name">Thành Viên 3</div>
@@ -85,7 +88,6 @@
 
         <!-- THÀNH VIÊN 4 -->
         <div class="member-box">
-            <!-- Thay link ảnh của Thành viên 4 vào mục src bên dưới -->
             <img src="https://picsum.photos" alt="Thành viên 4">
             <div class="member-info">
                 <div class="member-name">Thành Viên 4</div>
