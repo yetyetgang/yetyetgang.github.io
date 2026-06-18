@@ -28,7 +28,7 @@ musicPlayer.addEventListener('mouseleave', () => {
     hideTimeout = setTimeout(() => musicPlayer.classList.remove('show'), 3000);
 });
 
-// 2. Xử lý nút bấm Play/Pause tùy biến icon
+// 2. Xử lý nút bấm Play/Pause thủ công
 playBtn.addEventListener('click', () => {
     if (bgMusic.paused) {
         bgMusic.play();
@@ -41,15 +41,26 @@ playBtn.addEventListener('click', () => {
     }
 });
 
-// 3. Cập nhật thanh tiến trình phần trăm chạy và thời gian đếm số
+// MẸO: Tự động đổi hình nút bấm sang trạng thái đang phát khi nhạc chạy
+bgMusic.addEventListener('play', () => {
+    playIcon.style.display = 'none';
+    pauseIcon.style.display = 'block';
+});
+
+// 3. ÉP TRÌNH DUYỆT TỰ ĐỘNG PHÁT KHI NGƯỜI DÙNG CLICK LẦN ĐẦU
+document.addEventListener('click', () => {
+    if (bgMusic.paused) {
+        bgMusic.play().catch(error => console.log("Trình duyệt chặn autoplay:", error));
+    }
+}, { once: true }); // Chỉ chạy duy nhất một lần khi click đầu tiên
+
+// 4. Cập nhật thanh tiến trình phần trăm chạy và thời gian đếm số
 bgMusic.addEventListener('timeupdate', () => {
     const { duration, currentTime } = bgMusic;
     if (duration) {
-        // Chạy thanh progress trắng
         const progressPercent = (currentTime / duration) * 100;
         progressBar.style.width = `${progressPercent}%`;
         
-        // Tính phút giây hiển thị số
         let currentMin = Math.floor(currentTime / 60);
         let currentSec = Math.floor(currentTime % 60);
         if (currentSec < 10) currentSec = `0${currentSec}`;
@@ -62,7 +73,7 @@ bgMusic.addEventListener('timeupdate', () => {
     }
 });
 
-// 4. Cho phép người dùng bấm click vào thanh thời gian để tua nhạc
+// 5. Cho phép người dùng bấm click vào thanh thời gian để tua nhạc
 progressContainer.addEventListener('click', (e) => {
     const width = progressContainer.clientWidth;
     const clickX = e.offsetX;
