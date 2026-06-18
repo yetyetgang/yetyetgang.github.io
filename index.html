@@ -7,29 +7,26 @@
     <style>
         /* Cấu hình nền xám tối và trắng chủ đạo */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
-        body { background-color: #1a1a1a; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; overflow-x: hidden; }
+        body { background-color: #111111; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; overflow: hidden; position: relative; }
+
+        /* HIỆU ỨNG ÁNH SÁNG THEO CHUỘT */
+        .mouse-glow { position: fixed; top: 0; left: 0; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 50%, rgba(0,0,0,0) 80%); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 1; mix-blend-mode: screen; transition: opacity 0.3s ease; opacity: 0; }
 
         /* KHU VỰC LOGO & TÊN TEAM */
-        .brand-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
-        
-        /* Khung chứa Logo Team */
+        .brand-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; position: relative; z-index: 2; }
         .team-logo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #333333; box-shadow: 0 0 20px rgba(255,255,255,0.1); margin-bottom: 15px; transition: all 0.5s ease; }
         .brand-header:hover .team-logo { border-color: #ffffff; transform: scale(1.05); box-shadow: 0 0 25px rgba(255,255,255,0.2); }
-
-        /* Tên YYG màu trắng sáng rực rỡ */
         .brand-title { font-size: 4.5rem; font-weight: 900; color: #ffffff; letter-spacing: 5px; text-shadow: 0 0 15px rgba(255,255,255,0.3); text-align: center; line-height: 1; }
 
         /* Vùng chứa 4 ô vuông lớn */
-        .team-container { display: flex; width: 100%; max-width: 1400px; gap: 25px; height: 600px; align-items: center; justify-content: center; }
+        .team-container { display: flex; width: 100%; max-width: 1400px; gap: 25px; height: 600px; align-items: center; justify-content: center; position: relative; z-index: 2; }
 
         /* Cấu hình từng ô vuông thành viên tone Xám - Trắng */
-        .member-box { position: relative; flex: 1; height: 100%; border-radius: 20px; overflow: hidden; border: 2px solid #333333; cursor: pointer; transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); background-color: #262626; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .member-box { position: relative; flex: 1; height: 100%; border-radius: 20px; overflow: hidden; border: 2px solid #333333; cursor: pointer; transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); background-color: #1a1a1a; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .member-box img { width: 100%; height: 100%; object-fit: cover; transition: all 0.6s ease; filter: brightness(0.4) grayscale(100%); }
 
-        /* Hình ảnh bên trong ô vuông (Bình thường hơi mờ đen trắng) */
-        .member-box img { width: 100%; height: 100%; object-fit: cover; transition: all 0.6s ease; filter: brightness(0.5) grayscale(50%); }
-
-        /* Phần chữ thông tin ban đầu ẩn đi và đẩy xuống dưới */
-        .member-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 35px; background: linear-gradient(to top, rgba(26,26,26,1) 0%, rgba(26,26,26,0.8) 60%, rgba(26,26,26,0) 100%); text-align: left; opacity: 0; transform: translateY(30px); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        /* Phần chữ thông tin ban đầu ẩn đi */
+        .member-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 35px; background: linear-gradient(to top, rgba(17,17,17,1) 0%, rgba(17,17,17,0.8) 60%, rgba(17,17,17,0) 100%); text-align: left; opacity: 0; transform: translateY(30px); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
         .member-name { font-size: 1.8rem; font-weight: bold; color: #ffffff; margin-bottom: 4px; }
         .member-role { font-size: 1rem; color: #cccccc; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px; }
 
@@ -39,20 +36,22 @@
 
         /* HIỆU ỨNG TƯƠNG TÁC KHI DI CHUỘT (HOVER EFFECT) */
         .team-container:hover .member-box { flex: 0.6; border-color: #222222; }
-        .team-container:hover .member-box img { filter: brightness(0.2) grayscale(100%) blur(2px); }
+        .team-container:hover .member-box img { filter: brightness(0.15) grayscale(100%) blur(3px); }
 
-        .team-container .member-box:hover { flex: 2.5; border-color: #ffffff; box-shadow: 0 0 40px rgba(255,255,255,0.2); }
+        .team-container .member-box:hover { flex: 2.5; border-color: #ffffff; box-shadow: 0 0 40px rgba(255,255,255,0.15); }
         .team-container .member-box:hover img { transform: scale(1.08); filter: brightness(1) grayscale(0%); }
         .team-container .member-box:hover .member-info { opacity: 1; transform: translateY(0); }
 
-        /* Tối ưu giao diện trên điện thoại (Xếp dọc) */
+        /* Tối ưu giao diện trên điện thoại (Xếp dọc, ẩn ánh sáng chuột) */
         @media (max-width: 900px) {
+            .mouse-glow { display: none; }
+            body { overflow-y: auto; }
             .brand-title { font-size: 3.5rem; }
             .team-logo { width: 90px; height: 90px; }
             .team-container { flex-direction: column; height: auto; gap: 20px; }
             .member-box { width: 100%; height: 350px; flex: none !important; }
             .member-box img { filter: brightness(0.8) grayscale(0%) !important; }
-            .member-info { opacity: 1; transform: translateY(0); padding: 20px; background: linear-gradient(to top, rgba(26,26,26,1) 0%, rgba(26,26,26,0.6) 100%); }
+            .member-info { opacity: 1; transform: translateY(0); padding: 20px; background: linear-gradient(to top, rgba(17,17,17,1) 0%, rgba(17,17,17,0.6) 100%); }
             .member-name { font-size: 1.4rem; }
             .member-role { font-size: 0.9rem; }
         }
@@ -60,9 +59,12 @@
 </head>
 <body>
 
+    <!-- ĐÈN SÁNG THEO CON CHUỘT -->
+    <div class="mouse-glow" id="glow"></div>
+
     <!-- KHU VỰC LOGO VÀ TÊN TEAM ĐẦU TRANG -->
     <div class="brand-header">
-        <!-- THAY LINK LOGO TEAM CỦA BẠN VÀO MỤC SRC DƯỚI ĐÂY -->
+        <!-- Thay link logo của bạn vào src dưới đây -->
         <img class="team-logo" src="https://picsum.photos" alt="YYG Logo">
         <div class="brand-title">YYG</div>
     </div>
@@ -72,10 +74,12 @@
 
         <!-- THÀNH VIÊN 1 -->
         <div class="member-box">
+            <!-- Thay ảnh thành viên 1 vào src dưới đây -->
             <img src="https://picsum.photos" alt="Thành viên 1">
             <div class="member-info">
                 <div class="member-name">Thiên An</div>
                 <div class="member-role">LEADER / CREATOR</div>
+                <!-- Thay link kênh YouTube vào href dưới đây -->
                 <a href="https://youtube.com" target="_blank" class="btn-youtube">SUBSCRIBE KÊNH</a>
             </div>
         </div>
@@ -111,6 +115,23 @@
         </div>
 
     </div>
+
+    <!-- SCRIPT ĐIỀU KHIỂN ÁNH SÁNG THEO CHUỘT -->
+    <script>
+        const glow = document.getElementById('glow');
+        
+        window.addEventListener('mousemove', (e) => {
+            glow.style.opacity = '1';
+            // Cập nhật vị trí của luồng sáng theo tọa độ chuột
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        // Ẩn luồng sáng khi con chuột rời khỏi cửa sổ trình duyệt
+        window.addEventListener('mouseout', () => {
+            glow.style.opacity = '0';
+        });
+    </script>
 
 </body>
 </html>
