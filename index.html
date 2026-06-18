@@ -55,6 +55,29 @@
             .member-name { font-size: 1.4rem; }
             .member-role { font-size: 0.9rem; }
         }
+                /* ĐỊNH DẠNG THANH WIDGET NHẠC DYNAMIC APPLE STYLE */
+        .music-widget { position: fixed; bottom: 25px; left: 25px; z-index: 1000; background: rgba(30, 30, 30, 0.75); border: 1px solid rgba(255, 255, 255, 0.1); padding: 12px 20px; border-radius: 20px; display: flex; align-items: center; gap: 15px; width: 420px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); transform: translateX(-120%); opacity: 0; transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .music-widget.show { transform: translateX(0); opacity: 1; }
+        
+        /* Ảnh thumb bài hát bo góc */
+        .widget-thumb { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        
+        /* Phần thông tin và thanh thời gian */
+        .widget-info { flex: 1; display: flex; flex-direction: column; text-align: left; }
+        .widget-song-title { font-size: 0.95rem; font-weight: 600; color: #ffffff; }
+        .widget-artist { font-size: 0.8rem; color: #aaaaaa; margin-bottom: 5px; }
+        
+        /* Thanh tiến trình thời gian chạy nhạc */
+        .widget-time-bar { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; color: #888888; font-family: monospace; }
+        .progress-container { flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; cursor: pointer; position: relative; }
+        .progress-bar { width: 0%; height: 100%; background: #ffffff; border-radius: 2px; transition: width 0.1s linear; }
+        
+        /* Hệ thống nút bấm điều khiển */
+        .widget-controls { display: flex; align-items: center; gap: 12px; }
+        .control-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 4px; }
+        .control-btn svg { width: 16px; height: 16px; fill: #aaaaaa; transition: fill 0.2s; }
+        .control-btn:hover svg { fill: #ffffff; }
+        .play-btn svg { width: 22px; height: 22px; fill: #ffffff; }
     </style>
 </head>
 <body>
@@ -129,15 +152,42 @@
         });
     </script>
 
-    <!-- KHU VỰC THANH PHÁT NHẠC TRƯỢT THÔNG MINH -->
-    <div class="music-wrapper">
-        <div class="music-player" id="musicPlayer">
-            <div class="song-title">🎵 Đang phát: YETYETGANG Theme Song</div>
-            <audio id="bg-music" src="https://soundhelix.com" controls loop style="height: 30px; width: 220px;"></audio>
+    <!-- GIAO DIỆN THANH NHẠC DYNAMIC MUSIC WIDGET MỚI -->
+    <div class="music-widget" id="musicPlayer">
+        <!-- Ảnh thu nhỏ bài hát (đang lấy ảnh Minecraft xám của bạn) -->
+        <img class="widget-thumb" src="https://postimg.cc" alt="Thumb">
+        
+        <!-- Thông tin bài hát -->
+        <div class="widget-info">
+            <div class="widget-song-title">Tek It</div>
+            <div class="widget-artist">Cafuné</div>
+            <div class="widget-time-bar">
+                <span id="currentTime">0:00</span>
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <span id="durationTime">3:11</span>
+            </div>
         </div>
-        <div class="music-toggle-btn" id="musicToggleBtn" title="Bật/Tắt thanh nhạc">
-            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+
+        <!-- Các nút điều khiển phát nhạc -->
+        <div class="widget-controls">
+            <button class="control-btn" id="prevBtn" title="Bài trước">
+                <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+            </button>
+            <button class="control-btn play-btn" id="playBtn" title="Phát/Tạm dừng">
+                <!-- Icon Play mặc định -->
+                <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <!-- Icon Pause ẩn lúc đầu -->
+                <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <button class="control-btn" id="nextBtn" title="Bài tiếp theo">
+                <svg viewBox="0 0 24 24"><path d="M16 18h2V6h-2zM6 18l8.5-6L6 6z"/></svg>
+            </button>
         </div>
+
+        <!-- Thẻ âm thanh chạy ngầm đã ẩn giao diện thô -->
+        <audio id="bg-music" src="https://soundhelix.com" loop></audio>
     </div>
 
     <!-- GỌI FILE ĐIỀU KHIỂN NHẠC RIÊNG BIỆT -->
