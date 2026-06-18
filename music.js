@@ -28,31 +28,46 @@ musicPlayer.addEventListener('mouseleave', () => {
     hideTimeout = setTimeout(() => musicPlayer.classList.remove('show'), 3000);
 });
 
-// 2. Xử lý nút bấm Play/Pause thủ công
-playBtn.addEventListener('click', () => {
-    if (bgMusic.paused) {
-        bgMusic.play();
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
-    } else {
-        bgMusic.pause();
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
-    }
-});
-
-// MẸO: Tự động đổi hình nút bấm sang trạng thái đang phát khi nhạc chạy
-bgMusic.addEventListener('play', () => {
+// Hàm đồng bộ giao diện khi nhạc chạy
+function setPlayState() {
     playIcon.style.display = 'none';
     pauseIcon.style.display = 'block';
+}
+
+// Hàm đồng bộ giao diện khi nhạc dừng
+function setPauseState() {
+    playIcon.style.display = 'block';
+    pauseIcon.style.display = 'none';
+}
+
+// 2. Xử lý nút bấm Play/Pause thủ công
+playBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài body
+    if (bgMusic.paused) {
+        bgMusic.play();
+        setPlayState();
+    } else {
+        bgMusic.pause();
+        setPauseState();
+    }
 });
 
-// 3. ÉP TRÌNH DUYỆT TỰ ĐỘNG PHÁT KHI NGƯỜI DÙNG CLICK LẦN ĐẦU
-document.addEventListener('click', () => {
+// 3. GIẢI PHÁP ĐÁNH LỪA TRÌNH DUYỆT: CLICK BẤT CỨ ĐÂU ĐỂ CHẠY NHẠC
+// Người xem click vùng trống hoặc lướt màn hình là nhạc tự động cất lên
+function unlockAutoplay() {
     if (bgMusic.paused) {
-        bgMusic.play().catch(error => console.log("Trình duyệt chặn autoplay:", error));
+        bgMusic.play().then(() => {
+            setPlayState();
+            // Đã kích hoạt thành công, gỡ bỏ lắng nghe để tránh lỗi lặp lại
+            document.removeEventListener('click', unlockAutoplay);
+            document.removeEventListener('touchstart', unlockAutoplay);
+        }).catch(error => {
+            console.log("Chờ người dùng click sâu hơn:", error);
+        });
     }
-}, { once: true }); // Chỉ chạy duy nhất một lần khi click đầu tiên
+}
+document.addEventListener('click', unlockAutoplay);
+document.addEventListener('touchstart', unlockAutoplay); // Hỗ trợ mượt trên điện thoại
 
 // 4. Cập nhật thanh tiến trình phần trăm chạy và thời gian đếm số
 bgMusic.addEventListener('timeupdate', () => {
@@ -75,6 +90,7 @@ bgMusic.addEventListener('timeupdate', () => {
 
 // 5. Cho phép người dùng bấm click vào thanh thời gian để tua nhạc
 progressContainer.addEventListener('click', (e) => {
+    e.stopPropagation();
     const width = progressContainer.clientWidth;
     const clickX = e.offsetX;
     const duration = bgMusic.duration;
