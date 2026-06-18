@@ -78,6 +78,14 @@
         .control-btn svg { width: 16px; height: 16px; fill: #aaaaaa; transition: fill 0.2s; }
         .control-btn:hover svg { fill: #ffffff; }
         .play-btn svg { width: 22px; height: 22px; fill: #ffffff; }
+
+                /* CSS CHO KHỐI ĐIỀU CHỈNH ÂM LƯỢNG */
+        .volume-container { display: flex; align-items: center; position: relative; }
+        #volumeSlider { width: 0; opacity: 0; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; -webkit-appearance: none; appearance: none; transition: all 0.3s ease; outline: none; cursor: pointer; }
+        #volumeSlider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 10px; height: 10px; border-radius: 50%; background: #ffffff; }
+        
+        /* Hiệu ứng: Di chuột vào vùng loa thì thanh kéo âm lượng trượt ngang dài ra */
+        .volume-container:hover #volumeSlider { width: 70px; opacity: 1; margin-left: 5px; }
     </style>
 </head>
 <body>
@@ -199,6 +207,16 @@
             <button class="control-btn" id="nextBtn" title="Bài tiếp theo">
                 <svg viewBox="0 0 24 24"><path d="M16 18h2V6h-2zM6 18l8.5-6L6 6z"/></svg>
             </button>
+                        <!-- NÚT LOA VÀ THANH KÉO ÂM LƯỢNG MỚI -->
+            <div class="volume-container">
+                <button class="control-btn" id="volumeBtn" title="Mute/Unmute">
+                    <!-- Icon loa bật -->
+                    <svg id="volumeUpIcon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+                    <!-- Icon loa tắt (ẩn lúc đầu) -->
+                    <svg id="volumeMuteIcon" viewBox="0 0 24 24" style="display:none;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                </button>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.3" title="Thanh chỉnh âm lượng">
+            </div>
         </div>
 
         <!-- Thẻ âm thanh chạy ngầm đã ẩn giao diện thô -->
