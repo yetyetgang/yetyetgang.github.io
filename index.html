@@ -9,8 +9,15 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
         body { background-color: #1a1a1a; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; overflow-x: hidden; }
 
-        /* Tên YYG màu trắng sáng rực rỡ ở trên đầu */
-        .brand-title { font-size: 5.5rem; font-weight: 900; color: #ffffff; letter-spacing: 5px; margin-bottom: 50px; text-shadow: 0 0 15px rgba(255,255,255,0.3); text-align: center; }
+        /* KHU VỰC LOGO & TÊN TEAM */
+        .brand-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
+        
+        /* Khung chứa Logo Team */
+        .team-logo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #333333; box-shadow: 0 0 20px rgba(255,255,255,0.1); margin-bottom: 15px; transition: all 0.5s ease; }
+        .brand-header:hover .team-logo { border-color: #ffffff; transform: scale(1.05); box-shadow: 0 0 25px rgba(255,255,255,0.2); }
+
+        /* Tên YYG màu trắng sáng rực rỡ */
+        .brand-title { font-size: 4.5rem; font-weight: 900; color: #ffffff; letter-spacing: 5px; text-shadow: 0 0 15px rgba(255,255,255,0.3); text-align: center; line-height: 1; }
 
         /* Vùng chứa 4 ô vuông lớn */
         .team-container { display: flex; width: 100%; max-width: 1400px; gap: 25px; height: 600px; align-items: center; justify-content: center; }
@@ -31,24 +38,20 @@
         .btn-youtube:hover { background-color: #cc0000; transform: scale(1.05); }
 
         /* HIỆU ỨNG TƯƠNG TÁC KHI DI CHUỘT (HOVER EFFECT) */
-        /* Khi di chuột vào vùng chứa chung, các ô khác tự động thu nhỏ lại và tối đi */
         .team-container:hover .member-box { flex: 0.6; border-color: #222222; }
         .team-container:hover .member-box img { filter: brightness(0.2) grayscale(100%) blur(2px); }
 
-        /* Riêng ô được trỏ chuột vào: Phóng to, sáng ảnh rõ nét, viền trắng, và HIỆN THÔNG TIN + NÚT */
         .team-container .member-box:hover { flex: 2.5; border-color: #ffffff; box-shadow: 0 0 40px rgba(255,255,255,0.2); }
         .team-container .member-box:hover img { transform: scale(1.08); filter: brightness(1) grayscale(0%); }
-        
-        /* Hiện chữ và nút mượt mà từ dưới lên */
         .team-container .member-box:hover .member-info { opacity: 1; transform: translateY(0); }
 
         /* Tối ưu giao diện trên điện thoại (Xếp dọc) */
         @media (max-width: 900px) {
-            .brand-title { font-size: 3.5rem; margin-bottom: 30px; }
+            .brand-title { font-size: 3.5rem; }
+            .team-logo { width: 90px; height: 90px; }
             .team-container { flex-direction: column; height: auto; gap: 20px; }
             .member-box { width: 100%; height: 350px; flex: none !important; }
             .member-box img { filter: brightness(0.8) grayscale(0%) !important; }
-            /* Hiện sẵn thông tin trên điện thoại */
             .member-info { opacity: 1; transform: translateY(0); padding: 20px; background: linear-gradient(to top, rgba(26,26,26,1) 0%, rgba(26,26,26,0.6) 100%); }
             .member-name { font-size: 1.4rem; }
             .member-role { font-size: 0.9rem; }
@@ -57,8 +60,12 @@
 </head>
 <body>
 
-    <!-- TÊN YYG MÀU TRẮNG TRÊN ĐẦU -->
-    <div class="brand-title">YYG</div>
+    <!-- KHU VỰC LOGO VÀ TÊN TEAM ĐẦU TRANG -->
+    <div class="brand-header">
+        <!-- THAY LINK LOGO TEAM CỦA BẠN VÀO MỤC SRC DƯỚI ĐÂY -->
+        <img class="team-logo" src="https://picsum.photos" alt="YYG Logo">
+        <div class="brand-title">YYG</div>
+    </div>
 
     <!-- KHU VỰC 4 Ô VUÔNG THÀNH VIÊN -->
     <div class="team-container">
@@ -69,7 +76,6 @@
             <div class="member-info">
                 <div class="member-name">Thiên An</div>
                 <div class="member-role">LEADER / CREATOR</div>
-                <!-- Thay link kênh YouTube của Thiên An vào chỗ href="..." dưới đây -->
                 <a href="https://youtube.com" target="_blank" class="btn-youtube">SUBSCRIBE KÊNH</a>
             </div>
         </div>
@@ -80,7 +86,6 @@
             <div class="member-info">
                 <div class="member-name">Thành Viên 2</div>
                 <div class="member-role">VIDEO EDITOR</div>
-                <!-- Thay link kênh YouTube của Thành Viên 2 vào chỗ href="..." dưới đây -->
                 <a href="https://youtube.com" target="_blank" class="btn-youtube">SUBSCRIBE KÊNH</a>
             </div>
         </div>
@@ -91,7 +96,6 @@
             <div class="member-info">
                 <div class="member-name">Thành Viên 3</div>
                 <div class="member-role">DESIGNER</div>
-                <!-- Thay link kênh YouTube của Thành Viên 3 vào chỗ href="..." dưới đây -->
                 <a href="https://youtube.com" target="_blank" class="btn-youtube">SUBSCRIBE KÊNH</a>
             </div>
         </div>
@@ -102,7 +106,6 @@
             <div class="member-info">
                 <div class="member-name">Thành Viên 4</div>
                 <div class="member-role">STREAMER</div>
-                <!-- Thay link kênh YouTube của Thành Viên 4 vào chỗ href="..." dưới đây -->
                 <a href="https://youtube.com" target="_blank" class="btn-youtube">SUBSCRIBE KÊNH</a>
             </div>
         </div>
