@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -116,7 +116,6 @@
             border-radius:50%;
             border:3px solid white;
             margin-bottom:25px;
-            animation:logoFloat 2s ease-in-out infinite;
             box-shadow:0 0 30px rgba(255,255,255,.15);
         }
 
@@ -153,6 +152,43 @@
             }
             50%{
                 transform:translateY(-10px);
+            }
+        }
+
+
+                /* ===========================
+           LOADING SCREEN GLITCH ONLY
+        =========================== */
+
+        #loadingScreen .loading-logo,
+        #loadingScreen h1{
+            animation: loadingGlitch 3s infinite;
+        }
+
+
+        @keyframes loadingGlitch {
+
+            0%,85%,100%{
+                transform: translate(0);
+                text-shadow:0 0 15px rgba(255,255,255,.3);
+            }
+
+            87%{
+                transform:translate(-4px,2px);
+                text-shadow:
+                3px 0 #ff004c,
+                -3px 0 #00ffff;
+            }
+
+            89%{
+                transform:translate(4px,-2px);
+                text-shadow:
+                -3px 0 #ff004c,
+                3px 0 #00ffff;
+            }
+
+            91%{
+                transform:translate(0);
             }
         }
     </style>
